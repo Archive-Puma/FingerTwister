@@ -1,5 +1,19 @@
-int gridSz = 30;
+/** https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life */
+
+/* STILL LIFES */
+static final char BLOCK = '0';
+static final char BEEHIVE = '1';
+static final char LOAF = '2';
+static final char BOAT = '3';
+static final char TUB = '4';
+
+/* OSCILLATORS */
+static final char BLINKER = '5';
+static final char TOAD = '6';
+static final char BEACON = '7';
+
 Cell[][] cell;
+int gridSz = 30;
 
 void setup ()
 {
@@ -7,7 +21,8 @@ void setup ()
   frameRate(2);
   cell = new Cell[width/gridSz][height/gridSz];
   initCells(gridSz);
-  createCells();
+  
+  createCells(BLINKER);
 }
 
 void draw ()
@@ -20,11 +35,12 @@ void draw ()
 
 private void drawGrid(int sz)
 {
- for(int i = 0; i < height; i += sz)
- {
-   line(i, 0, i, height);
-   line(0, i, width , i);
- }
+  stroke(0);
+  for(int i = 0; i < height; i += sz)
+  {
+    line(i, 0, i, height);
+    line(0, i, width , i);
+  }
 }
 
 private void initCells(int sz)
@@ -38,13 +54,57 @@ private void initCells(int sz)
  }
 }
 
-private void createCells()
+private void createCells(int figure)
 {
-  cell[2][2] = new Cell(true);
-  cell[3][3] = new Cell(true);
-  cell[4][1] = new Cell(true);
-  cell[4][2] = new Cell(true);
-  cell[4][3] = new Cell(true);
+  int ctr = (int) width/(2*gridSz) -1;
+  
+  switch(figure)
+  {
+    // STILL LIFES //
+    case '0': //BLOCK
+      cell[ctr][ctr] = new Cell(true);
+      cell[ctr][ctr+1] = new Cell(true);
+      cell[ctr+1][ctr] = new Cell(true);
+      cell[ctr+1][ctr+1] = new Cell(true);
+      break;
+    case '1': //BEEHIVE
+      cell[ctr][ctr-1] = new Cell(true);
+      cell[ctr+1][ctr-1] = new Cell(true);
+      cell[ctr-1][ctr] = new Cell(true);
+      cell[ctr+2][ctr] = new Cell(true);
+      cell[ctr][ctr+1] = new Cell(true);
+      cell[ctr+1][ctr+1] = new Cell(true);
+      break;
+    case '2': //LOAF
+      cell[ctr][ctr-2] = new Cell(true);
+      cell[ctr+1][ctr-2] = new Cell(true);
+      cell[ctr-1][ctr-1] = new Cell(true);
+      cell[ctr+2][ctr-1] = new Cell(true);
+      cell[ctr][ctr] = new Cell(true);
+      cell[ctr+2][ctr] = new Cell(true);
+      cell[ctr+1][ctr+1] = new Cell(true);
+      break;
+    case '3': //BOAT
+      cell[ctr-1][ctr-1] = new Cell(true);
+      cell[ctr][ctr-1] = new Cell(true);
+      cell[ctr-1][ctr] = new Cell(true);
+      cell[ctr+1][ctr] = new Cell(true);
+      cell[ctr][ctr+1] = new Cell(true);
+      break;
+    case '4': //TUB
+      cell[ctr][ctr-1] = new Cell(true);
+      cell[ctr-1][ctr] = new Cell(true);
+      cell[ctr+1][ctr] = new Cell(true);
+      cell[ctr][ctr+1] = new Cell(true);
+      break;
+      
+    // OSCILATORS //
+    case '5': //BLINKER
+      cell[ctr-1][ctr] = new Cell(true);
+      cell[ctr][ctr] = new Cell(true);
+      cell[ctr+1][ctr] = new Cell(true);
+      break;
+  }
 }
 
 private void drawCells(int sz)

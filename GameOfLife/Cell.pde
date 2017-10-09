@@ -1,39 +1,19 @@
 class Cell {
   
   boolean state;
+  color specie = 0;
+  //color specie = color(random(255), random(255), random(255));
   
   public Cell(boolean state)
   {
     this.state = state;
   }
   
-  public boolean update(int aliveNeightbours)
-  {
-    // loneliness
-    if( aliveNeightbours < 3 )
-    {
-      this.state = false;
-    // birth
-    } else if( aliveNeightbours == 3)
-    {
-      this.state = true;
-    // overpopulated
-    } else if( aliveNeightbours > 3)
-    {
-      this.state = false;
-    }
-
-    return this.state;
-  }
-  
   public void show(int sz)
   {
     if(state)
     {
-      fill(0);
-      rect(0,0,sz,sz);
-    } else {
-      fill(255);
+      fill(specie);
       rect(0,0,sz,sz);
     }
   }
