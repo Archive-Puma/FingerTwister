@@ -11,6 +11,8 @@ static final char TUB = '4';
 static final char BLINKER = '5';
 static final char TOAD = '6';
 static final char BEACON = '7';
+static final char PULSAR = '8';
+static final char PENTADECATHLON = '9';
 
 Cell[][] cell;
 int gridSz = 30;
@@ -19,23 +21,26 @@ void setup ()
 {
   size(600,600);
   frameRate(2);
+  // stoke
+  stroke(100);
+  strokeWeight(1.5);
+  // initial Cells
   cell = new Cell[width/gridSz][height/gridSz];
   initCells(gridSz);
   
-  createCells(BLINKER);
+  createCells(PENTADECATHLON);
 }
 
 void draw ()
 {
   background(255); // clear background with white
-  drawGrid(gridSz);
   drawCells(gridSz);
+  drawGrid(gridSz);
   updateCells(gridSz);
 }
 
 private void drawGrid(int sz)
 {
-  stroke(0);
   for(int i = 0; i < height; i += sz)
   {
     line(i, 0, i, height);
@@ -103,6 +108,90 @@ private void createCells(int figure)
       cell[ctr-1][ctr] = new Cell(true);
       cell[ctr][ctr] = new Cell(true);
       cell[ctr+1][ctr] = new Cell(true);
+      break;
+    case '6': //TOAD
+      cell[ctr-1][ctr-1] = new Cell(true);
+      cell[ctr][ctr-1] = new Cell(true);
+      cell[ctr+1][ctr-1] = new Cell(true);
+      cell[ctr][ctr] = new Cell(true);
+      cell[ctr+1][ctr] = new Cell(true);
+      cell[ctr+2][ctr] = new Cell(true);
+      break;
+    case '7': //BEACON
+      cell[ctr-1][ctr-1] = new Cell(true);
+      cell[ctr][ctr-1] = new Cell(true);
+      cell[ctr-1][ctr] = new Cell(true);
+      cell[ctr+2][ctr+1] = new Cell(true);
+      cell[ctr+1][ctr+2] = new Cell(true);
+      cell[ctr+2][ctr+2] = new Cell(true);
+      break;
+    case '8': //PULSAR
+      cell[ctr-4][ctr-6] = new Cell(true);
+      cell[ctr-3][ctr-6] = new Cell(true);
+      cell[ctr-2][ctr-6] = new Cell(true);
+      cell[ctr-4][ctr-1] = new Cell(true);
+      cell[ctr-3][ctr-1] = new Cell(true);
+      cell[ctr-2][ctr-1] = new Cell(true);
+      cell[ctr-6][ctr-4] = new Cell(true);
+      cell[ctr-6][ctr-3] = new Cell(true);
+      cell[ctr-6][ctr-2] = new Cell(true);
+      cell[ctr-1][ctr-4] = new Cell(true);
+      cell[ctr-1][ctr-3] = new Cell(true);
+      cell[ctr-1][ctr-2] = new Cell(true);
+      
+      cell[ctr-4][ctr+6] = new Cell(true);
+      cell[ctr-3][ctr+6] = new Cell(true);
+      cell[ctr-2][ctr+6] = new Cell(true);
+      cell[ctr-4][ctr+1] = new Cell(true);
+      cell[ctr-3][ctr+1] = new Cell(true);
+      cell[ctr-2][ctr+1] = new Cell(true);
+      cell[ctr-6][ctr+4] = new Cell(true);
+      cell[ctr-6][ctr+3] = new Cell(true);
+      cell[ctr-6][ctr+2] = new Cell(true);
+      cell[ctr-1][ctr+4] = new Cell(true);
+      cell[ctr-1][ctr+3] = new Cell(true);
+      cell[ctr-1][ctr+2] = new Cell(true);
+      
+      cell[ctr+4][ctr-6] = new Cell(true);
+      cell[ctr+3][ctr-6] = new Cell(true);
+      cell[ctr+2][ctr-6] = new Cell(true);
+      cell[ctr+4][ctr-1] = new Cell(true);
+      cell[ctr+3][ctr-1] = new Cell(true);
+      cell[ctr+2][ctr-1] = new Cell(true);
+      cell[ctr+6][ctr-4] = new Cell(true);
+      cell[ctr+6][ctr-3] = new Cell(true);
+      cell[ctr+6][ctr-2] = new Cell(true);
+      cell[ctr+1][ctr-4] = new Cell(true);
+      cell[ctr+1][ctr-3] = new Cell(true);
+      cell[ctr+1][ctr-2] = new Cell(true);
+      
+      cell[ctr+4][ctr+6] = new Cell(true);
+      cell[ctr+3][ctr+6] = new Cell(true);
+      cell[ctr+2][ctr+6] = new Cell(true);
+      cell[ctr+4][ctr+1] = new Cell(true);
+      cell[ctr+3][ctr+1] = new Cell(true);
+      cell[ctr+2][ctr+1] = new Cell(true);
+      cell[ctr+6][ctr+4] = new Cell(true);
+      cell[ctr+6][ctr+3] = new Cell(true);
+      cell[ctr+6][ctr+2] = new Cell(true);
+      cell[ctr+1][ctr+4] = new Cell(true);
+      cell[ctr+1][ctr+3] = new Cell(true);
+      cell[ctr+1][ctr+2] = new Cell(true);
+      break;
+    case '9': //PENTADECATHLON
+      cell[ctr-1][ctr-2] = new Cell(true);
+      cell[ctr-1][ctr+3] = new Cell(true);
+      cell[ctr+1][ctr-2] = new Cell(true);
+      cell[ctr+1][ctr+3] = new Cell(true);
+      
+      cell[ctr][ctr-4] = new Cell(true);
+      cell[ctr][ctr-3] = new Cell(true);
+      cell[ctr][ctr-1] = new Cell(true);
+      cell[ctr][ctr] = new Cell(true);
+      cell[ctr][ctr+1] = new Cell(true);
+      cell[ctr][ctr+2] = new Cell(true);
+      cell[ctr][ctr+4] = new Cell(true);
+      cell[ctr][ctr+5] = new Cell(true);
       break;
   }
 }
