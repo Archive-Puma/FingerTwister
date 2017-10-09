@@ -1,4 +1,5 @@
 int repeat = 1, maximum = 8;
+boolean colors = false;
 float diameter = 600;
 
 public void setup()
@@ -23,10 +24,20 @@ public void draw()
   }
 }
 
+public void keyPressed()
+{
+  if(colors)
+    colors = false;
+   else
+    colors = true;
+}
+
 private void fractalCircle(float x, float y, float r, int c)
 {
   if(r > 2 && c < repeat)
   {
+    if(colors)
+      stroke(random(155)+100, random(155)+100, random(155)+100);
     ellipse(x, y, r, r);
     
     fractalCircle(x + r/2, y, r * 0.5, c + 1);
