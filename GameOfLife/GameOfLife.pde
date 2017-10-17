@@ -5,11 +5,22 @@ Cosas de Puma (https://github.com/cosasdepuma) */
 Conway's Game of Life (http://www.conwaylife.com/w/index.php?title=Conway%27s_Game_of_Life) 
 The Coding Train (https://www.youtube.com/watch?v=tENSCEO-LEc) */
 
+/** CONTROLS:
+
+F ......... Faster
+S ......... Slower
+R ......... Reset the camera view
++ / - ..... Zoom in / out
+SPACE ..... Draw mode on / off
+ARROWS .... Move the camera
+
+*/
 
 /* |------------| */
 /**|    VARS    |**/
 /* |------------| */
 
+private short delay = 0;
 private Grid grid = null;
 private Cell cell[][] = null;
 private boolean drawMode = true;
@@ -46,6 +57,9 @@ public void setup()
   size(600,600);
   frameRate(60);
   stroke(0);
+  
+  //delay
+  delay = 15;
   
   // grid options (gridSettings (numberOfCells in a row, sizeOfCells))
   gridSettings = new PVector(60,10);
@@ -84,7 +98,7 @@ public void draw()
   if (!drawMode) 
   {
     // some delay
-    if(frameCount % 15 == 0) updateCells();
+    if(frameCount % delay == 0) updateCells();
     drawCells();
   } else {
     // drawMode colour
@@ -110,8 +124,15 @@ public void keyPressed()
     else if (keyCode == RIGHT) map.x -= 3;
   }
   
+  // delay
+  else if (key == 's' || key == 'S') delay *= 2;
+  else if (key == 'f' || key == 'F')
+  {
+    if( delay / 2 > 1 ) delay /= 2;
+  }
+
   // zoom map
-  if (key == '+') map.z = map.z + 0.05;
+  else if (key == '+') map.z = map.z + 0.05;
   else if (key == '-') map.z = map.z - 0.05;
   
   // draw mode
@@ -169,11 +190,8 @@ private void createCellMap(short pattern)
     case 1:
       for (short i = 0; i < gridSettings.x; i++)
         for (short j = 0; j < gridSettings.x; j++)
-        {
-          cell[i][j].alived(); println(random(3));
-        }
-          
-          
+          if( (short) random(3) == 2 )
+            cell[i][j].alived();        
       break;
     
     // STILL LIFES //
