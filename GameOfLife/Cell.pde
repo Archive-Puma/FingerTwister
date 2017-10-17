@@ -1,25 +1,48 @@
-class Cell {
+public class Cell
+{  
+  private boolean isAlived = false;
   
-  boolean state;
-  color specie = 0;
-  //color specie = color(random(255), random(255), random(255));
+  public Cell() { }
   
   public Cell(boolean state)
   {
-    this.state = state;
+    this.isAlived = state;
   }
   
-  public void show(int sz)
+  public void show(PVector settings)
   {
-    if(state)
-    {
-      fill(specie);
-      rect(0,0,sz,sz);
-    }
+    if(isAlived) fill(0);
+    else fill(255);
+    
+    pushMatrix();
+    translate(settings.x*settings.z, settings.y*settings.z);
+    rect(0,0,settings.z,settings.z);
+    popMatrix();
+    
+    return;
   }
   
-  public boolean getState()
+  public void alived()
   {
-    return this.state;
+    this.isAlived = true;
+    return;
   }
+  
+  public void death()
+  {
+    this.isAlived = false;
+    return;
+  }
+  
+  public void change()
+  {
+    this.isAlived = !this.isAlived;
+    return;
+  }
+  
+  public boolean isDeath()
+  {
+    return !isAlived;
+  }
+  
 }
