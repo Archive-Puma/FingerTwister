@@ -10,6 +10,7 @@ The Coding Train (https://www.youtube.com/watch?v=tENSCEO-LEc) */
 F ......... Faster
 S ......... Slower
 R ......... Reset the camera view
+C ......... Show dead cells
 + / - ..... Zoom in / out
 SPACE ..... Draw mode on / off
 ARROWS .... Move the camera
@@ -24,6 +25,7 @@ private short delay = 0;
 private Grid grid = null;
 private Cell cell[][] = null;
 private boolean drawMode = true;
+private boolean deadCells = false;
 private PVector gridSettings = null, map = null;
 
 /* |------------| */
@@ -139,6 +141,8 @@ public void keyPressed()
   else if (key == ' ') drawMode = !drawMode;
   // reset map view
   else if (key == 'R' || key == 'r') map = new PVector(0,0,1);
+  // coloured cells
+  else if (key == 'C' || key == 'c') deadCells = !deadCells;
   
   return;
 }
@@ -368,6 +372,7 @@ private void updateCells()
       }
       
       nextGen[i][j] = new Cell();
+      if (!cell[i][j].isDeath() && deadCells) nextGen[i][j].changeColor(color(0,255,0, 120));
       if( (neights == 3) || (neights == 2 && !cell[i][j].isDeath()) )
         nextGen[i][j].alived();      
     }
